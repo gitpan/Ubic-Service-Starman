@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Ubic::Service::Starman;
 {
-  $Ubic::Service::Starman::VERSION = '0.001';
+  $Ubic::Service::Starman::VERSION = '0.002';
 }
 
 # Set the plackup bin to starman
@@ -10,22 +10,29 @@ sub BEGIN { $ENV{'UBIC_SERVICE_PLACKUP_BIN'} = 'starman'; }
 
 use base qw(Ubic::Service::Plack);
 
-use Ubic::Daemon::PidState;
-
 # ABSTRACT: Helper for running psgi applications with Starman
 
 sub new {
     my ($class, %args ) = @_;
 
     $args{server} = 'Starman';
-    return $class->SUPER::new( %args );
+    my $obj = $class->SUPER::new( %args );
+    # Default pid file for starman
+    unless( $obj->{server_args}->{pid} ){
+        # Set a pid for the starman server if one is not already set,
+        # we'll need it for the reload command to work
+        $obj->{server_args}->{pid} = $obj->pidfile . '.starman';
+    }
+    return $obj;
 }
 
 sub reload {
     my ( $self ) = @_;
 
-    my $pid_data = Ubic::Daemon::PidState->new($self->pidfile)->read;
-    kill HUP => $pid_data->{daemon};
+    open FILE, $self->{server_args}->{pid} or die "Couldn't read pidfile";
+    chomp(my $pid = <FILE>);
+
+    kill HUP => $pid;
     return 'reloaded';
 }
 
@@ -42,7 +49,7 @@ Ubic::Service::Starman - Helper for running psgi applications with Starman
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Ubic::Service::Starman;
 {
-  $Ubic::Service::Starman::VERSION = '0.002';
+  $Ubic::Service::Starman::VERSION = '0.003';
 }
 
 # Set the plackup bin to starman
@@ -13,10 +13,11 @@ use base qw(Ubic::Service::Plack);
 # ABSTRACT: Helper for running psgi applications with Starman
 
 sub new {
-    my ($class, %args ) = @_;
+    my $class = shift;
+    my $args = @_ > 1 ? { @_ } : $_[0];
 
-    $args{server} = 'Starman';
-    my $obj = $class->SUPER::new( %args );
+    $args->{server} = 'Starman';
+    my $obj = $class->SUPER::new( $args );
     # Default pid file for starman
     unless( $obj->{server_args}->{pid} ){
         # Set a pid for the starman server if one is not already set,
@@ -49,7 +50,7 @@ Ubic::Service::Starman - Helper for running psgi applications with Starman
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 

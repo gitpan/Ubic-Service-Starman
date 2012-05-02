@@ -8,3 +8,4 @@ README.pod
 dist.ini
 lib/Ubic/Service/Starman.pm
 t/00-compile.t
+t/01-basic.t

@@ -9,13 +9,14 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300014, CPAN::Meta::Converter version 2.120630'
+generated_by: 'Dist::Zilla version 4.300023, CPAN::Meta::Converter version 2.120921'
 license: unrestricted
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Ubic-Service-Starman
 requires:
+  Starman: 0
   Ubic::Service::Plack: 0
   base: 0
   strict: 0
@@ -24,4 +25,4 @@ resources:
   bugtracker: https://github.com/throughnothing/Ubic-Service-Starman/issues
   homepage: http://metacpan.org/release/Ubic-Service-Starman/
   repository: git://github.com/throughnothing/Ubic-Service-Starman.git
-version: 0.003
+version: 0.004

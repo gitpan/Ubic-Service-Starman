@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Ubic::Service::Starman;
 {
-  $Ubic::Service::Starman::VERSION = '0.003';
+  $Ubic::Service::Starman::VERSION = '0.004';
 }
 
 # Set the plackup bin to starman
@@ -50,7 +50,7 @@ Ubic::Service::Starman - Helper for running psgi applications with Starman
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 
